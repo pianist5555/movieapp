@@ -12,7 +12,7 @@ class MovieReview(models.Model):
     movie = models.ForeignKey(Movie, models.PROTECT)
 
     text = models.CharField(max_length=50)
-    rating = models.CharField(max_length=50) 
+    rating = models.DecimalField(max_digits = 3, decimal_places = 1) 
     created_at = models.DateTimeField(null=True, blank=True)
     summary = models.CharField(max_length=50) 
     is_deleted = models.BooleanField(default=False)
