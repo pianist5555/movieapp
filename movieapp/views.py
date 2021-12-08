@@ -25,7 +25,7 @@ def movieapp_list(request):
     if pg <= 0: pg = 1
 
     movie = movie.filter(f)
-    if rating_ordering == 'asc': # 평점 역순 여부
+    if rating_ordering == 'asc': # 평점 정렬 조건
         movie = movie.order_by('rating')
     elif rating_ordering == 'desc':
         movie = movie.order_by('-rating')
@@ -59,8 +59,34 @@ def movieapp_list(request):
     return HttpResponse(json.dumps({'data':data}),
                             content_type='application/json; charset=utf8')
 
-def movieapp_detail(request):
-    return HttpResponse(json.dumps({'test':"movieapp_detail url connect succeed"}),
+def movieapp_detail(request, movie_id=None):
+    try:
+        movie = Movie.objects.prefetch_related('moviereview_set').get(id=movie_id)
+    except Exception as e: 
+        raise Exception("존재하지 않는 영화입니다.",e)
+
+    reviews = []
+    for review in movie.moviereview_set.all():
+        v = {
+            'id': review.id,
+            'text': review.text,
+            'rating': str(review.rating),
+            'created_at': str(review.created_at),
+            'summary': review.summary,
+        }
+        reviews.append(v)
+
+    data = {
+        'id': movie.id,
+        'title': movie.title,
+        'year': movie.year,
+        'rating': str(movie.rating),
+        'genres': movie.genres.split(' ')[:len(movie.genres.split(' '))-1],
+        'summary': movie.summary,
+        'reviews': reviews,
+    }
+
+    return HttpResponse(json.dumps({'data':data}),
                             content_type='application/json; charset=utf8')
 
 def movieapp_create(request):

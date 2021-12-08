@@ -3,7 +3,7 @@ from movieapp import views
 
 urlpatterns_movie = [
     path('list', views.movieapp_list, name='api_movie_list'),
-    path('detail', views.movieapp_detail, name='api_movie_detail'),
+    path('detail/<int:movie_id>', views.movieapp_detail, name='api_movie_detail'),
     path('create', views.movieapp_create, name='api_movie_create'),
 ]
 urlpatterns_review = [
