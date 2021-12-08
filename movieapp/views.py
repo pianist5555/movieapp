@@ -167,9 +167,7 @@ def vote_create(request):
         print(request.POST.get("review_id"))
         review_id = int(request.POST.get("review_id"))
         review = MovieReview.objects.get(id=review_id)
-        print("review =",review)
         vote = MovieReviewVote(review=review)
-        print("vote = ",vote)
         vote.save()
     except Exception as e: 
         raise Exception("리뷰 추천 생성에 실패 하였습니다.",e)
