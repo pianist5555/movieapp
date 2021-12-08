@@ -163,10 +163,29 @@ def review_delete(request):
                             content_type='application/json; charset=utf8')
 
 def vote_create(request):
+    try:
+        print(request.POST.get("review_id"))
+        review_id = int(request.POST.get("review_id"))
+        review = MovieReview.objects.get(id=review_id)
+        print("review =",review)
+        vote = MovieReviewVote(review=review)
+        print("vote = ",vote)
+        vote.save()
+    except Exception as e: 
+        raise Exception("리뷰 추천 생성에 실패 하였습니다.",e)
+    
     return HttpResponse(json.dumps({'test':"vote_create url connect succeed"}),
                             content_type='application/json; charset=utf8')
 
 def vote_delete(request):
+    try:
+        vote_id = int(request.POST.get("review_vote_id"))
+        vote = MovieReviewVote.objects.get(id=vote_id)
+        vote.is_deleted=True
+        vote.save()
+    except Exception as e: 
+        raise Exception("리뷰 추천 삭제에 실패 하였습니다.",e)
+
     return HttpResponse(json.dumps({'test':"vote_delete url connect succeed"}),
                             content_type='application/json; charset=utf8')
 
