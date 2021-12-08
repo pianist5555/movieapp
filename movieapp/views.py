@@ -164,7 +164,6 @@ def review_delete(request):
 
 def vote_create(request):
     try:
-        print(request.POST.get("review_id"))
         review_id = int(request.POST.get("review_id"))
         review = MovieReview.objects.get(id=review_id)
         vote = MovieReviewVote(review=review)
