@@ -1,10 +1,8 @@
-# movieapp
-
 docker build .
 <br>
 docker-compose up
 <br>
 ---
-도커 명령어 입력 후
+<u>도커 명령어 입력 후</u>
 <br>
-8000 포트로 접속해주세요.
+<u>8000 포트로 접속해주세요.</u>
