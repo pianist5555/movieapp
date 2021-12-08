@@ -139,6 +139,15 @@ def review_create(request):
                             content_type='application/json; charset=utf8')
 
 def review_update(request):
+    try:
+        review_id = int(request.POST.get("review_id"))
+        review = MovieReview.objects.get(id=review_id)
+        review.text = request.POST.get("text")
+        review.rating = float(request.POST.get("rating"))
+        review.save()
+    except Exception as e: 
+        raise Exception("존재하지 않는 리뷰입니다.",e)
+
     return HttpResponse(json.dumps({'test':"review_update url connect succeed"}),
                             content_type='application/json; charset=utf8')
 
