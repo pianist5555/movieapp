@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from django.http import HttpResponse
 from .models import *
@@ -123,7 +124,18 @@ def review_detail(request, review_id):
                             content_type='application/json; charset=utf8')
 
 def review_create(request):
-    return HttpResponse(json.dumps({'test':"review_create url connect succeed"}),
+    try:
+        movie_id = int(request.POST.get("movie_id"))
+        movie = Movie.objects.get(id=movie_id)
+        text = request.POST.get("text")
+        rating = float(request.POST.get("rating"))
+        review = MovieReview(movie=movie, text=text, rating=rating, created_at=datetime.now())
+        review.save()
+        succeed = '성공'
+    except Exception as e: 
+        raise Exception("리뷰 생성에 실패 하였습니다.",e)
+
+    return HttpResponse(json.dumps({'succeed':succeed}),
                             content_type='application/json; charset=utf8')
 
 def review_update(request):
