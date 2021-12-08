@@ -90,7 +90,20 @@ def movieapp_detail(request, movie_id=None):
                             content_type='application/json; charset=utf8')
 
 def movieapp_create(request):
-    return HttpResponse(json.dumps({'test':"movieapp_create url connect succeed"}),
+    try:
+        title = request.POST.get("title")
+        year = request.POST.get("year")
+        summary = request.POST.get("summary")
+        genres = ''
+        for genre in request.POST.getlist('genres[]'):
+            genres += genre +' '
+        movie = Movie(title=title, year=year, genres=genres, summary=summary)
+        movie.save()
+        succeed = '성공'
+    except Exception as e: 
+        raise Exception("영화 생성에 실패 하였습니다.",e)
+
+    return HttpResponse(json.dumps({'succeed':succeed}),
                             content_type='application/json; charset=utf8')
 
 def review_detail(request):
