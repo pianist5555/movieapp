@@ -106,8 +106,20 @@ def movieapp_create(request):
     return HttpResponse(json.dumps({'succeed':succeed}),
                             content_type='application/json; charset=utf8')
 
-def review_detail(request):
-    return HttpResponse(json.dumps({'test':"review_detail url connect succeed"}),
+def review_detail(request, review_id):
+    try:
+        review = MovieReview.objects.select_related('movie').get(id=review_id)
+    except Exception as e: 
+        raise Exception("존재하지 않는 리뷰입니다.",e)
+
+    data = {
+        'id': review.id,
+        'text': review.text,
+        'rating': str(review.rating),
+        'created_at': str(review.created_at),
+    }
+
+    return HttpResponse(json.dumps({'data':data}),
                             content_type='application/json; charset=utf8')
 
 def review_create(request):

@@ -7,7 +7,7 @@ urlpatterns_movie = [
     path('create', views.movieapp_create, name='api_movie_create'),
 ]
 urlpatterns_review = [
-    path('detail', views.review_detail, name='api_review_detail'),
+    path('detail/<int:review_id>', views.review_detail, name='api_review_detail'),
     path('create', views.review_create, name='api_review_create'),
     path('update', views.review_update, name='api_review_update'),
     path('delete', views.review_delete, name='api_review_delete'),
