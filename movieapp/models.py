@@ -17,7 +17,7 @@ class MovieReview(models.Model):
     is_deleted = models.BooleanField(default=False)
 
 class MovieReviewVote(models.Model):
-    review_id = models.ForeignKey(MovieReview, models.PROTECT)
+    review = models.ForeignKey(MovieReview, models.PROTECT)
 
     is_deleted = models.BooleanField(default=False)
 

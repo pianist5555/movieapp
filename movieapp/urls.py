@@ -13,6 +13,6 @@ urlpatterns_review = [
     path('delete', views.review_delete, name='api_review_delete'),
 ]
 urlpatterns_vote = [
-    path('list', views.vote_create, name='api_vote_create'),
-    path('detail', views.vote_delete, name='api_vote_delete'),
+    path('create', views.vote_create, name='api_vote_create'),
+    path('delete', views.vote_delete, name='api_vote_delete'),
 ]
