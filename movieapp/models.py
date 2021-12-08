@@ -13,7 +13,7 @@ class MovieReview(models.Model):
 
     text = models.CharField(max_length=50)
     rating = models.CharField(max_length=50) 
-    created_at = models.CharField(max_length=50) 
+    created_at = models.DateTimeField(null=True, blank=True)
     summary = models.CharField(max_length=50) 
     is_deleted = models.BooleanField(default=False)
 
