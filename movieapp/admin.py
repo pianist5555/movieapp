@@ -5,7 +5,7 @@ class MovieAdmin(admin.ModelAdmin) :
     list_display = ('title', 'year', 'genres', 'summary', 'rating' )
 
 class MovieRevieweAdmin(admin.ModelAdmin) :
-    list_display = ('movie', 'text', 'rating', 'created_at', 'summary', 'is_deleted' )
+    list_display = ('movie', 'text', 'rating', 'created_at', 'is_deleted' )
 
 class MovieReviewVoteeAdmin(admin.ModelAdmin) :
     list_display = ('review_id', 'is_deleted')

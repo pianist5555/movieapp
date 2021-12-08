@@ -73,7 +73,6 @@ def movieapp_detail(request, movie_id=None):
             'text': review.text,
             'rating': str(review.rating),
             'created_at': str(review.created_at),
-            'summary': review.summary,
         }
         reviews.append(v)
 
